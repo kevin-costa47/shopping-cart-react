@@ -39,7 +39,7 @@ class App extends Component {
   searchProduct = async searchObj => {
     this.setState({ loading: true });
 
-    const { text, chosenBrand, sort } = searchObj;
+    const { text, chosenBrand, sort, wished } = searchObj;
     const { indexPage, wishProducts } = this.state;
 
     var searchResult;
@@ -121,7 +121,7 @@ class App extends Component {
 
   // Add Products to Cart
   addToCart = async producID => {
-    const { cartProducts, wishProducts } = this.state;
+    const { cartProducts } = this.state;
     var cartVal = this.state.cartValue;
 
     var chosenProduct = products.find(prod => prod.id === producID);
@@ -197,6 +197,20 @@ class App extends Component {
     });
   };
 
+  showWished = () => {
+    let { wishProducts } = this.state;
+    let wishArray;
+
+    wishArray = wishProducts.map(wish => {
+      wish.wished = true;
+      return wish;
+    });
+
+    this.setState({
+      products: wishArray
+    });
+  };
+
   render() {
     var {
       products,
@@ -215,8 +229,8 @@ class App extends Component {
             cart_size={cartProducts.length}
             wish_size={wishProducts.length}
             cart_value={cartValue}
+            showWished={this.showWished}
           ></Header>
-          {/* <Alert alert={alert}></Alert> */}
           <div className="container">
             <Switch>
               <Route

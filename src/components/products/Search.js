@@ -6,7 +6,8 @@ export class Search extends Component {
   state = {
     text: "",
     chosenBrand: 0,
-    sort: 0
+    sort: 0,
+    wished: 0
   };
 
   static propTypes = {
@@ -70,6 +71,25 @@ export class Search extends Component {
               </option>
             </select>
           </div>
+          {/* <div>
+            <label className="product-controls__label">Wished:</label>
+            <select
+              name="wish"
+              onChange={this.onChange}
+              className="product-controls__select"
+              placeholder="Sort Products..."
+            >
+              <option key={0} value={0}>
+                All Products
+              </option>
+              <option key={1} value={1}>
+                Yes
+              </option>
+              <option key={2} value={2}>
+                No
+              </option>
+            </select>
+          </div> */}
         </div>
       </div>
     );
@@ -78,7 +98,8 @@ export class Search extends Component {
 
 const productStyle = {
   display: "grid",
-  // gridTemplateColumns: "repeat(2, 2fr)",
+  // gridTemplateColumns: "repeat(4, 2fr)",
+  // gridTemplateColumns: "repeat( auto-fit, minmax(150px, 1fr))",
   gridTemplateColumns: "repeat( auto-fit, minmax(150px, 1fr))",
   gridGap: "1rem",
   margin: "15px"

@@ -2,7 +2,14 @@ import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const Header = ({ icon, title, cart_size, cart_value, wish_size }) => {
+const Header = ({
+  icon,
+  title,
+  cart_size,
+  cart_value,
+  wish_size,
+  showWished
+}) => {
   Header.defaultProps = {
     title: "Shopping Cart",
     icon: "fas fa-shopping-bag",
@@ -16,6 +23,10 @@ const Header = ({ icon, title, cart_size, cart_value, wish_size }) => {
     cart_value: PropTypes.number.isRequired
   };
 
+  Header.onClick = e => {
+    showWished();
+  };
+
   return (
     <header className="header container">
       <Link to="/">
@@ -24,9 +35,6 @@ const Header = ({ icon, title, cart_size, cart_value, wish_size }) => {
         </h1>
       </Link>
       <ul>
-        {/* <li>
-          <Link to="/">Home</Link>
-        </li> */}
         <aside className="header-bag">
           <Link to="/cart">
             <div className="header-bag__item header-bag__count">
@@ -54,30 +62,33 @@ const Header = ({ icon, title, cart_size, cart_value, wish_size }) => {
               <span className="bag__item-counter">{cart_size}</span>
             </div>
           </Link>
-          <Link to="/cart">
-            <div className="header-bag__item header-bag__wishlist-count">
-              <svg
-                className="icon"
-                width="20px"
-                height="20px"
-                viewBox="0 6 20 20"
-                version="1.1"
-              >
-                <title>Wishlist Icon</title>
-                <polygon
-                  id="Wishlist-Icon"
-                  stroke="none"
-                  fillRule="evenodd"
-                  points="12.3598869 13.2675869 20 13.2675869 13.8200565 17.7545318 16.1782804 25.0221187 9.99833694 20.5318477 3.81839348 25.0221187 6.17994346 17.7545318 0 13.2675869 7.63678696 13.2675869 9.99833694 6"
-                ></polygon>
-              </svg>
-              {wish_size > 0 && (
-                <Fragment>
-                  <span className="bag__item-counter">{wish_size}</span>
-                </Fragment>
-              )}
-            </div>
-          </Link>
+          {/* <Link to="/cart"> */}
+          <div
+            className="header-bag__item header-bag__wishlist-count"
+            onClick={e => Header.onClick(e)}
+          >
+            <svg
+              className="icon"
+              width="20px"
+              height="20px"
+              viewBox="0 6 20 20"
+              version="1.1"
+            >
+              <title>Wishlist Icon</title>
+              <polygon
+                id="Wishlist-Icon"
+                stroke="none"
+                fillRule="evenodd"
+                points="12.3598869 13.2675869 20 13.2675869 13.8200565 17.7545318 16.1782804 25.0221187 9.99833694 20.5318477 3.81839348 25.0221187 6.17994346 17.7545318 0 13.2675869 7.63678696 13.2675869 9.99833694 6"
+              ></polygon>
+            </svg>
+            {wish_size > 0 && (
+              <Fragment>
+                <span className="bag__item-counter">{wish_size}</span>
+              </Fragment>
+            )}
+          </div>
+          {/* </Link> */}
         </aside>
       </ul>
     </header>

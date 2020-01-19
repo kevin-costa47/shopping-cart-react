@@ -32,7 +32,7 @@ export class Cart extends Component {
 
     return (
       <Fragment>
-        <div style={{ height: "82vh", overflow: "auto" }}>
+        <div style={{ height: "81vh", overflow: "auto" }}>
           {cartProducts.map(prod => (
             <div
               className="card grid-4"
@@ -113,20 +113,17 @@ export class Cart extends Component {
                   onClick={e => this.removeProduct(prod.id)}
                   style={{ marginTop: "20px" }}
                 >
-                  <i className="fas fa-cart-plus">Remove</i>
+                  <i
+                    className="fas fa-times"
+                    style={{ marginRight: "5px" }}
+                  ></i>
+                  Remove
                 </button>{" "}
-                {/* <button
-                  onClick={e => this.updateQuantiy(prod.id)}
-                  className="button button--primary"
-                  style={{ marginTop: "20px" }}
-                >
-                  <i className="fas fa-cart-plus">Update</i>
-                </button>{" "} */}
               </div>
             </div>
           ))}
         </div>
-        <div style={gridStyle}>
+        <div style={gridStyle} className="card">
           <div>Total Price:</div>
           <div className="all-center">{cartValue}€</div>
         </div>

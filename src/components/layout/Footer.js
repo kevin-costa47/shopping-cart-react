@@ -8,7 +8,7 @@ const Footer = () => {
   Footer.propTypes = {};
 
   return (
-    <nav className="container">
+    <nav className="container footer_style">
       <h2 className="footer__sidenote">FOOTER</h2>
     </nav>
   );

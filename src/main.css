@@ -116,6 +116,11 @@ main {
   --success-color: #28a745;
 }
 
+.footer_style {
+  position: absolute;
+  bottom: 0px;
+}
+
 .my {
   margin: 0.5rem 0;
 }
@@ -368,6 +373,10 @@ main {
 
 .header-bag__wishlist-count {
   margin-left: 10px;
+}
+
+.header-bag__wishlist-count:hover {
+  cursor: pointer;
 }
 
 .bag__item-counter {
