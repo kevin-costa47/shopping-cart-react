@@ -18,8 +18,9 @@ import brands from "./data/brands.json";
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      products: [],
+      products: products,
       fullSearch: [],
       product: {},
       cartProducts: [],
@@ -29,12 +30,6 @@ class App extends Component {
       indexPage: 0,
       numberPages: 0
     };
-    this.setState({ loading: true });
-  }
-
-  async componentDidMount() {
-    this.setState({ loading: false, products: products });
-    this.searchProduct({});
   }
 
   // Search Products
