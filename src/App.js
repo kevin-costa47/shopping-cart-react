@@ -40,7 +40,7 @@ class App extends Component {
     this.setState({ loading: true });
 
     const { text, chosenBrand, sort } = searchObj;
-    const { indexPage } = this.state;
+    const { indexPage, wishProducts } = this.state;
 
     var searchResult;
     if (text) {
@@ -77,6 +77,17 @@ class App extends Component {
     });
 
     searchResult = searchResult.slice(indexPage, indexPage + 6);
+
+    if (wishProducts.length > 0) {
+      searchResult.forEach(searchObj => {
+        let wishIndex = wishProducts.findIndex(wish => wish.id == searchObj.id);
+        if (wishIndex > -1) {
+          searchObj.wished = true;
+        } else {
+          searchObj.wished = false;
+        }
+      });
+    }
 
     this.setState({
       loading: false,
@@ -163,19 +174,26 @@ class App extends Component {
   };
 
   addWishList = async obj => {
-    var whishArray = this.state.wishProducts;
+    var { products, wishProducts } = this.state;
 
-    let exists = whishArray.findIndex(wObj => {
+    let exists = wishProducts.findIndex(wObj => {
       return wObj.id == obj.id;
     });
+
+    let cardIndex = products.findIndex(wObj => {
+      return wObj.id == obj.id;
+    });
+
     if (exists == -1) {
-      whishArray.push(obj);
+      wishProducts.push(obj);
+      products[cardIndex].wished = true;
     } else {
-      whishArray.splice(exists, 1);
+      wishProducts.splice(exists, 1);
+      products[cardIndex].wished = false;
     }
 
     this.setState({
-      wishProducts: whishArray
+      products: products
     });
   };
 

@@ -159,6 +159,14 @@ main {
   text-align: center;
 }
 
+.wishPressed {
+  border: 1px solid #444a59 !important;
+}
+
+.wishIcon {
+  fill: #444a59 !important;
+}
+
 /* Cards */
 .card {
   padding: 1rem;

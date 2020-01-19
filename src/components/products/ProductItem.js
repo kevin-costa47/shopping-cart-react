@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const productItem = ({
-  product: { price, subtitle, image, id, priceDiscounted, brandName },
+  product: { price, subtitle, image, id, priceDiscounted, brandName, wished },
   addToCart,
   addWishList
 }) => {
@@ -15,7 +15,11 @@ const productItem = ({
   return (
     <div className="card text-center" style={{ backgroundColor: "white" }}>
       <button
-        className="button button--round button--wishlist"
+        className={
+          wished == true
+            ? "button button--round button--wishlist wishPressed"
+            : "button button--round button--wishlist"
+        }
         onClick={e =>
           addWishList({
             price,
@@ -29,7 +33,7 @@ const productItem = ({
         style={{ float: "right", width: "35px", height: "35px" }}
       >
         <svg
-          className="icon"
+          className={wished == true ? "icon wishIcon" : "icon"}
           width="20px"
           height="20px"
           viewBox="0 6 20 20"
