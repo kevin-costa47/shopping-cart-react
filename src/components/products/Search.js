@@ -24,7 +24,7 @@ export class Search extends Component {
   render() {
     return (
       <div>
-        <div className="product-controls" style={productStyle}>
+        <div className="product-controls search_style">
           <div>
             <label className="product-controls__label">Search:</label>
             <input
@@ -71,38 +71,10 @@ export class Search extends Component {
               </option>
             </select>
           </div>
-          {/* <div>
-            <label className="product-controls__label">Wished:</label>
-            <select
-              name="wish"
-              onChange={this.onChange}
-              className="product-controls__select"
-              placeholder="Sort Products..."
-            >
-              <option key={0} value={0}>
-                All Products
-              </option>
-              <option key={1} value={1}>
-                Yes
-              </option>
-              <option key={2} value={2}>
-                No
-              </option>
-            </select>
-          </div> */}
         </div>
       </div>
     );
   }
 }
-
-const productStyle = {
-  display: "grid",
-  // gridTemplateColumns: "repeat(4, 2fr)",
-  // gridTemplateColumns: "repeat( auto-fit, minmax(150px, 1fr))",
-  gridTemplateColumns: "repeat( auto-fit, minmax(150px, 1fr))",
-  gridGap: "1rem",
-  margin: "15px"
-};
 
 export default Search;

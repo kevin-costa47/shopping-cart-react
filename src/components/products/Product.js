@@ -45,7 +45,7 @@ export class Product extends Component {
             Back
           </i>
         </Link>
-        <div style={{ height: "83vh", overflow: "auto" }}>
+        <div className="body_product">
           <div className="card grid-3" style={{ backgroundColor: "white" }}>
             <div className="all-center">
               <img

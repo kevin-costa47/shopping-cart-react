@@ -116,6 +116,32 @@ main {
   --success-color: #28a745;
 }
 
+.body_cart {
+  height: 81vh;
+  overflow: auto;
+}
+
+.search_style {
+  /* display: grid !important; */
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-gap: 1rem;
+  /* margin: 15px !important; */
+}
+
+.body_products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  height: 73vh;
+  overflow: auto;
+  grid-gap: 1rem;
+  margin: 15px;
+}
+
+.body_product-item {
+  height: 81vh;
+  overflow: auto;
+}
+
 .footer_style {
   position: absolute;
   bottom: 0px;

@@ -16,33 +16,35 @@ import products from "./data/products.json";
 import brands from "./data/brands.json";
 
 class App extends Component {
-  state = {
-    products: [],
-    fullSearch: [],
-    product: {},
-    cartProducts: [],
-    wishProducts: [],
-    cartValue: 0,
-    loading: false,
-    indexPage: 0,
-    numberPages: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+      fullSearch: [],
+      product: {},
+      cartProducts: [],
+      wishProducts: [],
+      cartValue: 0,
+      loading: false,
+      indexPage: 0,
+      numberPages: 0
+    };
+    this.setState({ loading: true });
+  }
 
   async componentDidMount() {
-    this.setState({ loading: true });
-
     this.setState({ loading: false, products: products });
     this.searchProduct({});
   }
 
   // Search Products
-  searchProduct = async searchObj => {
+  searchProduct = searchObj => {
     this.setState({ loading: true });
 
     const { text, chosenBrand, sort, wished } = searchObj;
     const { indexPage, wishProducts } = this.state;
 
-    var searchResult;
+    let searchResult;
     if (text) {
       searchResult = products.filter(pro => {
         return pro.subtitle.toLowerCase().includes(text.toLowerCase());
@@ -81,11 +83,7 @@ class App extends Component {
     if (wishProducts.length > 0) {
       searchResult.forEach(searchObj => {
         let wishIndex = wishProducts.findIndex(wish => wish.id == searchObj.id);
-        if (wishIndex > -1) {
-          searchObj.wished = true;
-        } else {
-          searchObj.wished = false;
-        }
+        searchObj.wished = wishIndex > -1;
       });
     }
 
@@ -98,10 +96,10 @@ class App extends Component {
   };
 
   // Get Product By ID
-  getProduct = async producID => {
+  getProduct = producID => {
     this.setState({ loading: true });
 
-    var chosenProduct = products.find(prod => prod.id === producID);
+    let chosenProduct = products.find(prod => prod.id === producID);
     chosenProduct.brandName = brands.find(
       brad => brad.id === chosenProduct.brandId
     ).name;
@@ -109,10 +107,11 @@ class App extends Component {
     this.setState({ loading: false, product: chosenProduct });
   };
 
-  onPageChange = async data => {
+  //Get products to show in the new page
+  onPageChange = data => {
     let selected = data.selected;
     let offset = Math.ceil(selected * 6);
-    var { fullSearch } = this.state;
+    let { fullSearch } = this.state;
 
     let newProducts = fullSearch.slice(offset, offset + 6);
 
@@ -120,11 +119,11 @@ class App extends Component {
   };
 
   // Add Products to Cart
-  addToCart = async producID => {
+  addToCart = producID => {
     const { cartProducts } = this.state;
-    var cartVal = this.state.cartValue;
+    let cartVal = this.state.cartValue;
 
-    var chosenProduct = products.find(prod => prod.id === producID);
+    let chosenProduct = products.find(prod => prod.id === producID);
     let indexProd = cartProducts.findIndex(prod => prod.id === producID);
     if (indexProd > -1) {
       cartProducts[indexProd].quantity += 1;
@@ -155,8 +154,9 @@ class App extends Component {
     });
   };
 
-  updateCart = async cartProducts => {
-    var cartVal = 0;
+  //Update products in the cart  and total value
+  updateCart = cartProducts => {
+    let cartVal = 0;
 
     cartProducts.forEach(prod => {
       if (prod.priceDiscounted) {
@@ -173,8 +173,9 @@ class App extends Component {
     });
   };
 
-  addWishList = async obj => {
-    var { products, wishProducts } = this.state;
+  //Update products in the wishlist
+  updateWishList = obj => {
+    let { products, wishProducts } = this.state;
 
     let exists = wishProducts.findIndex(wObj => {
       return wObj.id == obj.id;
@@ -197,6 +198,7 @@ class App extends Component {
     });
   };
 
+  //Add product to the wishlist
   showWished = () => {
     let { wishProducts } = this.state;
     let wishArray;
@@ -212,7 +214,7 @@ class App extends Component {
   };
 
   render() {
-    var {
+    let {
       products,
       loading,
       product,
@@ -244,7 +246,7 @@ class App extends Component {
                       addToCart={this.addToCart}
                       onPageChange={this.onPageChange}
                       products={products}
-                      addWishList={this.addWishList}
+                      updateWishList={this.updateWishList}
                       numberPages={numberPages}
                     ></Products>
                   </Fragment>

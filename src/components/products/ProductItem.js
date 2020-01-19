@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const productItem = ({
   product: { price, subtitle, image, id, priceDiscounted, brandName, wished },
   addToCart,
-  addWishList
+  updateWishList
 }) => {
   productItem.propTypes = {
     product: PropTypes.object.isRequired,
@@ -21,7 +21,7 @@ const productItem = ({
             : "button button--round button--wishlist"
         }
         onClick={e =>
-          addWishList({
+          updateWishList({
             price,
             subtitle,
             image,

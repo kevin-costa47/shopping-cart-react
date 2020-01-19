@@ -4,13 +4,8 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export class Cart extends Component {
-  componentDidMount() {}
-
-  updateCart = (e, obj) => {
-    obj.quantity = e.target.value;
-  };
-
-  updateQuantiy = (e, obj) => {
+  //Update Quantity of product in the Cart
+  updateQuantity = (e, obj) => {
     obj.quantity = e.target.value;
     if (obj.quantity > 0) {
       this.props.updateCart(this.props.cartProducts);
@@ -21,6 +16,7 @@ export class Cart extends Component {
     }
   };
 
+  //Remove a certain product from the cart
   removeProduct = id => {
     this.props.updateCart(
       this.props.cartProducts.filter(prod => prod.id != id)
@@ -28,11 +24,11 @@ export class Cart extends Component {
   };
 
   render() {
-    var { cartProducts, cartValue } = this.props;
+    let { cartProducts, cartValue } = this.props;
 
     return (
       <Fragment>
-        <div style={{ height: "81vh", overflow: "auto" }}>
+        <div className="body_cart">
           {cartProducts.map(prod => (
             <div
               className="card grid-4"
@@ -96,7 +92,7 @@ export class Cart extends Component {
                   type="quantity"
                   className="all-center"
                   style={{ width: "50%" }}
-                  onChange={e => this.updateQuantiy(e, prod)}
+                  onChange={e => this.updateQuantity(e, prod)}
                   defaultValue={prod.quantity}
                 ></input>
                 <p>x</p>

@@ -9,7 +9,7 @@ const Products = ({
   loading,
   addToCart,
   onPageChange,
-  addWishList,
+  updateWishList,
   numberPages
 }) => {
   if (loading) {
@@ -17,13 +17,15 @@ const Products = ({
   } else {
     return (
       <div>
-        <div style={productStyle}>
+        {/* <div style={productStyle}>
+         */}
+        <div className="body_products">
           {products.map(prod => (
             <ProductItem
               key={prod.id}
               product={prod}
               addToCart={addToCart}
-              addWishList={addWishList}
+              updateWishList={updateWishList}
             />
           ))}
         </div>
@@ -55,16 +57,6 @@ const Products = ({
 Products.propTypes = {
   products: PropTypes.array.isRequired,
   loading: PropTypes.bool.isRequired
-};
-
-const productStyle = {
-  display: "grid",
-  gridTemplateColumns: "repeat( auto-fit, minmax(300px, 1fr))",
-  // gridTemplateColumns: "repeat(3, 2fr)",
-  height: "73vh",
-  overflow: "auto",
-  gridGap: "1rem",
-  margin: "15px"
 };
 
 export default Products;
