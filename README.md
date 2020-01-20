@@ -1,8 +1,8 @@
 ## Steps to start project
 
-1- Acess the project directory - cd /page-react
-2- npm install
-3- npm start
+1- Acess the project directory - cd /page-react <br />
+2- npm install <br />
+3- npm start<br />
 
 ## Available Scripts
 
