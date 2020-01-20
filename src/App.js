@@ -219,14 +219,10 @@ class App extends Component {
 
     if (exists == -1) {
       wishProducts.push(obj);
-      products[cardIndex].wished = true;
     } else {
       wishProducts.splice(exists, 1);
-      products[cardIndex].wished = false;
     }
-
-    console.log("wishProducts", wishProducts);
-    console.log("products[cardIndex]", products[cardIndex]);
+    products[cardIndex].wished = exists == -1 ? true : false;
 
     this.setState({
       products: products,

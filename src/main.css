@@ -121,6 +121,13 @@ main {
   overflow: auto;
 }
 
+.total_price_style {
+  display: grid;
+  grid-template-columns: 80% repeat(auto-fill, 20%);
+  grid-gap: 1rem;
+  background-color: white;
+}
+
 .search_style {
   /* display: grid !important; */
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

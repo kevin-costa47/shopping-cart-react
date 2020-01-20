@@ -28,7 +28,7 @@ export class Search extends Component {
       <div>
         <div className="product-controls search_style">
           <div>
-            <label className="product-controls__label">Search:</label>
+            <label className="product-controls__label">Search by Name:</label>
             <input
               type="text"
               name="text"
@@ -39,7 +39,7 @@ export class Search extends Component {
             ></input>
           </div>
           <div>
-            <label className="product-controls__label">Name:</label>
+            <label className="product-controls__label">Brands:</label>
 
             <select
               value={this.state.chosenBrand}
@@ -57,7 +57,7 @@ export class Search extends Component {
             </select>
           </div>
           <div>
-            <label className="product-controls__label">Sort:</label>
+            <label className="product-controls__label">Sort by price:</label>
 
             <select
               name="sort"

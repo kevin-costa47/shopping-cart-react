@@ -1,17 +1,16 @@
 import React, { Component, Fragment } from "react";
 import Spinner from "../layout/Spinner";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 export class Cart extends Component {
   //Update Quantity of product in the Cart
   updateQuantity = (e, obj) => {
-    obj.quantity = e.target.value;
-    if (obj.quantity > 0) {
-      this.props.updateCart(this.props.cartProducts);
-    } else {
+    if (Number.isInteger(parseInt(e.target.value))) {
+      obj.quantity = e.target.value;
       this.props.updateCart(
-        this.props.cartProducts.filter(prod => prod.id != obj.id)
+        obj.quantity > 0
+          ? this.props.cartProducts
+          : this.props.cartProducts.filter(prod => prod.id != obj.id)
       );
     }
   };
@@ -119,7 +118,7 @@ export class Cart extends Component {
             </div>
           ))}
         </div>
-        <div style={gridStyle} className="card">
+        <div className="card total_price_style">
           <div>Total Price:</div>
           <div className="all-center">{cartValue}€</div>
         </div>

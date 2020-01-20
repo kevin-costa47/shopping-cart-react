@@ -47,7 +47,7 @@ const Header = ({
                 version="1.1"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <title>Bag Icon</title>
+                <title>Cart</title>
                 <path
                   d="M52.997701,12.8571429 L49.3553365,12.8571429 L49.3553365,8 L39.6423645,8 L39.6423645,12.8571429 L36,12.8571429 L36,25 L52.997701,25 L52.997701,12.8571429 Z M42.0706075,10.4285714 L46.9270935,10.4285714 L46.9270935,12.8571429 L42.0706075,12.8571429 L42.0706075,10.4285714 Z"
                   id="Bag-Icon"
@@ -70,7 +70,7 @@ const Header = ({
               viewBox="0 6 20 20"
               version="1.1"
             >
-              <title>Wishlist Icon</title>
+              <title>Wish List</title>
               <polygon
                 id="Wishlist-Icon"
                 stroke="none"
