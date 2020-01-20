@@ -89,7 +89,7 @@ export class Cart extends Component {
               <div className="all-center">
                 <p>Quantity</p>
                 <input
-                  type="quantity"
+                  type="number"
                   className="all-center"
                   style={{ width: "50%" }}
                   onChange={e => this.updateQuantity(e, prod)}

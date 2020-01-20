@@ -32,20 +32,59 @@ class App extends Component {
     };
   }
 
+  componentDidMount() {
+    this.searchProduct({});
+  }
+
   // Search Products
   searchProduct = searchObj => {
     this.setState({ loading: true });
 
-    const { text, chosenBrand, sort, wished } = searchObj;
+    let { text, chosenBrand, sort, wished, min_value, max_value } = searchObj;
     const { indexPage, wishProducts } = this.state;
 
     let searchResult;
+
     if (text) {
       searchResult = products.filter(pro => {
         return pro.subtitle.toLowerCase().includes(text.toLowerCase());
       });
     } else {
       searchResult = products;
+    }
+
+    max_value = parseFloat(max_value);
+    min_value = parseFloat(min_value);
+
+    if (max_value > 0 || min_value > 0) {
+      searchResult = searchResult.filter(searchObj => {
+        let actualPrice = searchObj.priceDiscounted
+          ? searchObj.price - searchObj.priceDiscounted
+          : searchObj.price;
+
+        if (
+          min_value > 0 &&
+          min_value <= actualPrice &&
+          max_value > 0 &&
+          max_value >= actualPrice
+        ) {
+          return searchObj;
+        } else if (
+          min_value > 0 &&
+          min_value <= actualPrice &&
+          (max_value == "" || max_value < 0)
+        ) {
+          return searchObj;
+        } else if (
+          max_value > 0 &&
+          max_value >= actualPrice &&
+          (min_value == "" || min_value < 0)
+        ) {
+          return searchObj;
+        } else if (max_value == "" && min_value == "") {
+          return searchObj;
+        }
+      });
     }
 
     if (chosenBrand > 0) {

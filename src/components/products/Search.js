@@ -7,7 +7,9 @@ export class Search extends Component {
     text: "",
     chosenBrand: 0,
     sort: 0,
-    wished: 0
+    wished: 0,
+    max_value: 0,
+    min_value: 0
   };
 
   static propTypes = {
@@ -70,6 +72,25 @@ export class Search extends Component {
                 Descending
               </option>
             </select>
+          </div>
+
+          <div>
+            <label className="product-controls__label">Min. Price:</label>
+            <input
+              name="min_value"
+              type="number"
+              onChange={this.onChange}
+              style={{ width: "70%", height: "30px" }}
+            ></input>
+          </div>
+          <div>
+            <label className="product-controls__label">Max. Price:</label>
+            <input
+              name="max_value"
+              type="number"
+              onChange={this.onChange}
+              style={{ width: "70%", height: "30px" }}
+            ></input>
           </div>
         </div>
       </div>

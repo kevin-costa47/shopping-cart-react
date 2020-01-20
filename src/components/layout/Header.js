@@ -11,8 +11,6 @@ const Header = ({
   showWished
 }) => {
   Header.defaultProps = {
-    title: "Shopping Cart",
-    icon: "fas fa-shopping-bag",
     cart_size: 0
   };
 
@@ -31,7 +29,7 @@ const Header = ({
     <header className="header container">
       <Link to="/">
         <h1 className="page-title">
-          <i className={icon}> {title}</i>
+          <i className="fas fa-shopping-bag"> Shopping Cart</i>
         </h1>
       </Link>
       <ul>
