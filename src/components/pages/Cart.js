@@ -127,11 +127,4 @@ export class Cart extends Component {
   }
 }
 
-const gridStyle = {
-  display: "grid",
-  gridTemplateColumns: "80% repeat(auto-fill, 20%)",
-  gridGap: "1rem",
-  backgroundColor: "white"
-};
-
 export default Cart;

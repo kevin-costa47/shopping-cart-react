@@ -10,7 +10,8 @@ const Products = ({
   addToCart,
   onPageChange,
   updateWishList,
-  numberPages
+  numberPages,
+  indexPage
 }) => {
   if (loading) {
     return <Spinner></Spinner>;
@@ -30,15 +31,17 @@ const Products = ({
           ))}
         </div>
 
-        {numberPages > 0 && (
+        {numberPages > 1 && (
           <Fragment>
-            <div className="all-center">
+            <div id="react_pags" className="all-center">
               <ReactPaginate
                 previousLabel={"<"}
                 nextLabel={">"}
                 breakLabel={"..."}
+                forcePage={indexPage}
                 breakClassName={"break-me"}
                 pageCount={numberPages}
+                initialPage={0}
                 marginPagesDisplayed={2}
                 pageRangeDisplayed={numberPages}
                 onPageChange={onPageChange}

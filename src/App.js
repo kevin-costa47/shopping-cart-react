@@ -15,25 +15,23 @@ import Search from "./components/products/Search";
 import products from "./data/products.json";
 import brands from "./data/brands.json";
 
+const NUMBER_ITEMS_PER_PAGE = 6;
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       products: products,
-      fullSearch: [],
       product: {},
       cartProducts: [],
       wishProducts: [],
       cartValue: 0,
       loading: false,
       indexPage: 0,
-      numberPages: 0
+      searchProducts: products,
+      numberPages: parseInt(products.length / NUMBER_ITEMS_PER_PAGE)
     };
-  }
-
-  componentDidMount() {
-    this.searchProduct({});
   }
 
   // Search Products
@@ -53,8 +51,8 @@ class App extends Component {
       searchResult = products;
     }
 
-    max_value = parseFloat(max_value);
-    min_value = parseFloat(min_value);
+    max_value = isNaN(parseFloat(max_value)) ? 0 : parseFloat(max_value);
+    min_value = isNaN(parseFloat(min_value)) ? 0 : parseFloat(min_value);
 
     if (max_value > 0 || min_value > 0) {
       searchResult = searchResult.filter(searchObj => {
@@ -93,7 +91,9 @@ class App extends Component {
       });
     }
 
-    let numberPages = parseInt(searchResult.length / 6);
+    let numberPages = Math.ceil(
+      parseFloat(searchResult.length / NUMBER_ITEMS_PER_PAGE)
+    );
 
     if (sort) {
       if (parseInt(sort) === 0) {
@@ -103,16 +103,12 @@ class App extends Component {
       }
     }
 
-    let fullSearch = searchResult;
-
     searchResult.forEach(res => {
       let foundBrand = brands.filter(fil => {
         return res.brandId == fil.id;
       });
       res.brandName = foundBrand[0].name;
     });
-
-    searchResult = searchResult.slice(indexPage, indexPage + 6);
 
     searchResult.forEach(searchObj => {
       let wishIndex = wishProducts.findIndex(wish => wish.id == searchObj.id);
@@ -123,15 +119,15 @@ class App extends Component {
       loading: false,
       products: searchResult,
       numberPages: numberPages,
-      fullSearch: fullSearch
+      indexPage: 0
     });
   };
 
   // Get Product By ID
-  getProduct = producID => {
+  getProduct = productID => {
     this.setState({ loading: true });
 
-    let chosenProduct = products.find(prod => prod.id === producID);
+    let chosenProduct = products.find(prod => prod.id === productID);
     chosenProduct.brandName = brands.find(
       brad => brad.id === chosenProduct.brandId
     ).name;
@@ -142,21 +138,17 @@ class App extends Component {
   //Get products to show in the new page
   onPageChange = data => {
     let selected = data.selected;
-    let offset = Math.ceil(selected * 6);
-    let { fullSearch } = this.state;
-
-    let newProducts = fullSearch.slice(offset, offset + 6);
-
-    this.setState({ indexPage: offset, products: newProducts }, () => {});
+    this.setState({ indexPage: selected });
   };
 
   // Add Products to Cart
-  addToCart = producID => {
+  addToCart = productID => {
     const { cartProducts } = this.state;
     let cartVal = this.state.cartValue;
 
-    let chosenProduct = products.find(prod => prod.id === producID);
-    let indexProd = cartProducts.findIndex(prod => prod.id === producID);
+    let chosenProduct = products.find(prod => prod.id === productID);
+    let indexProd = cartProducts.findIndex(prod => prod.id === productID);
+
     if (indexProd > -1) {
       cartProducts[indexProd].quantity += 1;
       if (cartProducts[indexProd].priceDiscounted) {
@@ -206,23 +198,23 @@ class App extends Component {
   };
 
   //Update products in the wishlist
-  updateWishList = obj => {
+  updateWishList = product => {
     let { products, wishProducts } = this.state;
 
-    let exists = wishProducts.findIndex(wObj => {
-      return wObj.id == obj.id;
+    let exists = wishProducts.findIndex(wishProduct => {
+      return wishProduct.id == product.id;
     });
 
-    let cardIndex = products.findIndex(wObj => {
-      return wObj.id == obj.id;
+    let cardIndex = products.findIndex(prod => {
+      return prod.id == product.id;
     });
 
     if (exists == -1) {
-      wishProducts.push(obj);
+      wishProducts.push(product);
     } else {
       wishProducts.splice(exists, 1);
     }
-    products[cardIndex].wished = exists == -1 ? true : false;
+    products[cardIndex].wished = exists === -1;
 
     this.setState({
       products: products,
@@ -241,7 +233,11 @@ class App extends Component {
     });
 
     this.setState({
-      products: wishArray
+      products: wishArray,
+      indexPage: 0,
+      numberPages: Math.ceil(
+        parseFloat(wishArray.length / NUMBER_ITEMS_PER_PAGE)
+      )
     });
   };
 
@@ -253,8 +249,11 @@ class App extends Component {
       cartProducts,
       cartValue,
       numberPages,
-      wishProducts
+      wishProducts,
+      indexPage
     } = this.state;
+
+    const numberProduct = indexPage * NUMBER_ITEMS_PER_PAGE;
 
     return (
       <Router>
@@ -277,7 +276,10 @@ class App extends Component {
                       loading={loading}
                       addToCart={this.addToCart}
                       onPageChange={this.onPageChange}
-                      products={products}
+                      products={products.slice(
+                        numberProduct,
+                        numberProduct + NUMBER_ITEMS_PER_PAGE
+                      )}
                       updateWishList={this.updateWishList}
                       numberPages={numberPages}
                     ></Products>
