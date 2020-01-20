@@ -114,12 +114,10 @@ class App extends Component {
 
     searchResult = searchResult.slice(indexPage, indexPage + 6);
 
-    if (wishProducts.length > 0) {
-      searchResult.forEach(searchObj => {
-        let wishIndex = wishProducts.findIndex(wish => wish.id == searchObj.id);
-        searchObj.wished = wishIndex > -1;
-      });
-    }
+    searchResult.forEach(searchObj => {
+      let wishIndex = wishProducts.findIndex(wish => wish.id == searchObj.id);
+      searchObj.wished = wishIndex > -1;
+    });
 
     this.setState({
       loading: false,
@@ -227,8 +225,12 @@ class App extends Component {
       products[cardIndex].wished = false;
     }
 
+    console.log("wishProducts", wishProducts);
+    console.log("products[cardIndex]", products[cardIndex]);
+
     this.setState({
-      products: products
+      products: products,
+      wishProducts: wishProducts
     });
   };
 

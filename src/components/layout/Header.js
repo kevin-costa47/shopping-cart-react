@@ -15,8 +15,6 @@ const Header = ({
   };
 
   Header.propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.string.isRequired,
     cart_size: PropTypes.number.isRequired,
     cart_value: PropTypes.number.isRequired
   };
